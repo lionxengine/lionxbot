@@ -29,6 +29,9 @@ FIREBASE_PROJECT_ID = "lionengine"
 FIREBASE_API_KEY = "AIzaSyCzfbotjRCNYM2j_wRwICU03cx6EbKjWfE"
 FIREBASE_BASE_URL = f"https://firestore.googleapis.com/v1/projects/{FIREBASE_PROJECT_ID}/databases/(default)/documents"
 
+# Maintenance mode state (in-memory, can be moved to Firestore if needed)
+maintenance_mode = False
+
 class FirebaseClient:
     def __init__(self):
         self.session = None
@@ -107,6 +110,7 @@ class FirebaseClient:
                         'last_streak_date': {'nullValue': None},
                         'high_streak': {'integerValue': '0'},
                         'total_invites': {'integerValue': '0'},
+                        'total_keys': {'integerValue': '0'},
                         'daily_key_claimed_at': {'nullValue': None},
                         'invited_users': {'arrayValue': {'values': []}},
                         'member_since': {'stringValue': member_since},
@@ -124,6 +128,7 @@ class FirebaseClient:
                             'last_streak_date': None,
                             'high_streak': 0,
                             'total_invites': 0,
+                            'total_keys': 0,
                             'daily_key_claimed_at': None,
                             'invited_users': [],
                             'member_since': member_since
@@ -137,6 +142,7 @@ class FirebaseClient:
                 'last_streak_date': None,
                 'high_streak': 0,
                 'total_invites': 0,
+                'total_keys': 0,
                 'daily_key_claimed_at': None,
                 'invited_users': [],
                 'member_since': datetime.now().strftime("%Y-%m-%d")
@@ -146,31 +152,54 @@ class FirebaseClient:
         session = await self.get_session()
         doc_path = f"{FIREBASE_BASE_URL}/users/{user_id}?key={FIREBASE_API_KEY}"
         
-        update_mask = '&'.join([f'updateMask.fieldPaths={k}' for k in updates.keys()])
-        fields = {}
-        for k, v in updates.items():
-            if isinstance(v, float):
-                fields[k] = {'doubleValue': v}
-            elif isinstance(v, int) and not isinstance(v, bool):
-                fields[k] = {'integerValue': str(v)}
-            elif isinstance(v, str):
-                fields[k] = {'stringValue': v}
-            elif isinstance(v, bool):
-                fields[k] = {'booleanValue': v}
-            elif isinstance(v, datetime):
-                fields[k] = {'timestampValue': v.isoformat()}
-            elif v is None:
-                fields[k] = {'nullValue': None}
-            elif isinstance(v, list):
-                # Handle arrays
-                fields[k] = {'arrayValue': {'values': [{'stringValue': str(item)} for item in v]}}
-            else:
-                fields[k] = {'stringValue': str(v)}
+        # Check if any field needs increment
+        transform_fields = {}
+        regular_updates = {}
         
-        data = {'fields': fields}
-        async with session.patch(f"{doc_path}&{update_mask}", json=data) as resp:
-            if resp.status != 200:
-                logging.error(f"Update user failed: {await resp.text()}")
+        for k, v in updates.items():
+            if k.endswith('_increment') and v is True:
+                field_name = k.replace('_increment', '')
+                transform_fields[field_name] = {'increment': {'integerValue': '1'}}
+            else:
+                regular_updates[k] = v
+        
+        # Handle regular updates
+        if regular_updates:
+            update_mask = '&'.join([f'updateMask.fieldPaths={k}' for k in regular_updates.keys()])
+            fields = {}
+            for k, v in regular_updates.items():
+                if isinstance(v, float):
+                    fields[k] = {'doubleValue': v}
+                elif isinstance(v, int) and not isinstance(v, bool):
+                    fields[k] = {'integerValue': str(v)}
+                elif isinstance(v, str):
+                    fields[k] = {'stringValue': v}
+                elif isinstance(v, bool):
+                    fields[k] = {'booleanValue': v}
+                elif isinstance(v, datetime):
+                    fields[k] = {'timestampValue': v.isoformat()}
+                elif v is None:
+                    fields[k] = {'nullValue': None}
+                elif isinstance(v, list):
+                    fields[k] = {'arrayValue': {'values': [{'stringValue': str(item)} for item in v]}}
+                else:
+                    fields[k] = {'stringValue': str(v)}
+            
+            data = {'fields': fields}
+            if transform_fields:
+                data['transform'] = [{'fieldPath': k, 'increment': v} for k, v in transform_fields.items()]
+            
+            async with session.patch(f"{doc_path}&{update_mask}", json=data) as resp:
+                if resp.status != 200:
+                    logging.error(f"Update user failed: {await resp.text()}")
+        elif transform_fields:
+            # Only transforms, no regular updates
+            data = {
+                'transform': [{'fieldPath': k, 'increment': v} for k, v in transform_fields.items()]
+            }
+            async with session.patch(f"{doc_path}?key={FIREBASE_API_KEY}", json=data) as resp:
+                if resp.status != 200:
+                    logging.error(f"Update user transform failed: {await resp.text()}")
     
     async def update_user_points(self, user_id: int, points_change: float):
         user = await self.get_user(user_id)
@@ -283,6 +312,9 @@ class FirebaseClient:
         async with session.post(doc_path, json=key_data) as resp:
             if resp.status != 200:
                 logging.error(f"Save key failed: {await resp.text()}")
+            else:
+                # Increment user's total_keys counter
+                await self.update_user(user_id, {'total_keys_increment': True})
     
     async def get_channel_member(self, user_id: int) -> dict:
         pass
@@ -449,6 +481,21 @@ async def start_cmd(message: types.Message):
                     except:
                         pass  # User might have blocked bot
     
+    # Check maintenance mode first
+    global maintenance_mode
+    if maintenance_mode and message.from_user.id != ADMIN_ID:
+        maint_text = (
+            f"<b>🔧 Maintenance Mode</b>\n\n"
+            f"🦁 <b>LionX Server Currently Under Maintenance</b>\n\n"
+            f"Please wait and try again later.\n\n"
+            f"<i>We'll be back soon!</i>"
+        )
+        await message.answer_photo(
+            photo=WELCOME_IMAGE,
+            caption=maint_text,
+        )
+        return
+    
     is_member = await check_channel_membership(user_id)
     
     if not is_member:
@@ -526,6 +573,8 @@ async def admin_panel_cmd(message: types.Message):
         [InlineKeyboardButton(text="📁 Add File", callback_data="admin_add_file", style="success")],
         [InlineKeyboardButton(text="📋 List Files", callback_data="admin_list_files", style="primary")],
         [InlineKeyboardButton(text="👥 User Stats", callback_data="admin_user_stats", style="primary")],
+        [InlineKeyboardButton(text="🔧 Maintenance Mode", callback_data="admin_maintenance", style="danger")],
+        [InlineKeyboardButton(text="🔄 Reset All Daily Keys", callback_data="admin_reset_all_daily", style="danger")],
         [InlineKeyboardButton(text="🔙 Close", callback_data="admin_close", style="danger")]
     ])
     
@@ -542,6 +591,69 @@ async def admin_close_callback(callback: types.CallbackQuery):
         return
     await callback.message.delete()
     await callback.answer()
+
+@dp.callback_query(F.data == "admin_maintenance")
+async def admin_maintenance_callback(callback: types.CallbackQuery):
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Access denied!", show_alert=True)
+        return
+    
+    global maintenance_mode
+    maintenance_mode = not maintenance_mode
+    
+    status = "ON 🔴" if maintenance_mode else "OFF 🟢"
+    await callback.answer(f"Maintenance Mode: {status}", show_alert=True)
+    
+    # Refresh panel
+    panel_text = (
+        f"<b>🔐 Admin Control Panel</b>\n\n"
+        f"Welcome <b>Khalid Khan</b>\n\n"
+        f"Select an option below:"
+    )
+    
+    admin_keyboard = InlineKeyboardMarkup(inline_keyboard=[
+        [InlineKeyboardButton(text="📢 Broadcast", callback_data="admin_broadcast", style="primary")],
+        [InlineKeyboardButton(text="📁 Add File", callback_data="admin_add_file", style="success")],
+        [InlineKeyboardButton(text="📋 List Files", callback_data="admin_list_files", style="primary")],
+        [InlineKeyboardButton(text="👥 User Stats", callback_data="admin_user_stats", style="primary")],
+        [InlineKeyboardButton(text="🔧 Maintenance Mode", callback_data="admin_maintenance", style="danger")],
+        [InlineKeyboardButton(text="🔄 Reset All Daily Keys", callback_data="admin_reset_all_daily", style="danger")],
+        [InlineKeyboardButton(text="🔙 Close", callback_data="admin_close", style="danger")]
+    ])
+    
+    await callback.message.edit_caption(
+        caption=panel_text,
+        reply_markup=admin_keyboard
+    )
+
+@dp.callback_query(F.data == "admin_reset_all_daily")
+async def admin_reset_all_daily_callback(callback: types.CallbackQuery):
+    if callback.from_user.id != ADMIN_ID:
+        await callback.answer("❌ Access denied!", show_alert=True)
+        return
+    
+    await callback.answer("🔄 Resetting daily keys for all users...", show_alert=True)
+    
+    # Get all users and reset their daily_key_claimed_at
+    session = await firebase_client.get_session()
+    doc_path = f"{FIREBASE_BASE_URL}/users?key={FIREBASE_API_KEY}"
+    
+    async with session.get(doc_path) as resp:
+        if resp.status == 200:
+            data = await resp.json()
+            users = data.get('documents', [])
+            
+            count = 0
+            for user_doc in users:
+                fields = user_doc.get('fields', {})
+                user_id = int(fields.get('user_id', {}).get('integerValue', '0'))
+                if user_id:
+                    await firebase_client.update_user(user_id, {'daily_key_claimed_at': None})
+                    count += 1
+            
+            await callback.answer(f"✅ Reset daily keys for {count} users!", show_alert=True)
+        else:
+            await callback.answer("❌ Failed to fetch users!", show_alert=True)
 
 @dp.callback_query(F.data == "admin_broadcast")
 async def admin_broadcast_callback(callback: types.CallbackQuery, state: FSMContext):
@@ -788,6 +900,8 @@ async def admin_back_callback(callback: types.CallbackQuery, state: FSMContext):
         [InlineKeyboardButton(text="📁 Add File", callback_data="admin_add_file", style="success")],
         [InlineKeyboardButton(text="📋 List Files", callback_data="admin_list_files", style="primary")],
         [InlineKeyboardButton(text="👥 User Stats", callback_data="admin_user_stats", style="primary")],
+        [InlineKeyboardButton(text="🔧 Maintenance Mode", callback_data="admin_maintenance", style="danger")],
+        [InlineKeyboardButton(text="🔄 Reset All Daily Keys", callback_data="admin_reset_all_daily", style="danger")],
         [InlineKeyboardButton(text="🔙 Close", callback_data="admin_close", style="danger")]
     ])
     
@@ -1415,12 +1529,12 @@ async def show_main_menu(message_or_callback, first_name: str):
             )
         return
     
-    db_user = await get_user(user_id, first_name)
-    points = db_user.get('points', 0)
-    invites = db_user.get('total_invites', 0)
-    streak = db_user.get('streak', 0)
-    username = db_user.get('username', '')
-    generated_keys = await count_user_keys(user_id)
+db_user = await get_user(user_id, first_name)
+      points = db_user.get('points', 0)
+      invites = db_user.get('total_invites', 0)
+      streak = db_user.get('streak', 0)
+      generated_keys = db_user.get('total_keys', 0)
+      username = db_user.get('username', '')
     
     # Username link
     username_text = f"@{username}" if username else "N/A"
