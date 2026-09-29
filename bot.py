@@ -1527,7 +1527,7 @@ async def show_main_menu(message_or_callback, first_name: str):
                 caption=join_text,
                 reply_markup=get_channel_join_keyboard()
             )
-return
+        return
     
     db_user = await get_user(user_id, first_name)
     points = db_user.get('points', 0)
