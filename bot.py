@@ -1527,14 +1527,14 @@ async def show_main_menu(message_or_callback, first_name: str):
                 caption=join_text,
                 reply_markup=get_channel_join_keyboard()
             )
-        return
+return
     
-db_user = await get_user(user_id, first_name)
-      points = db_user.get('points', 0)
-      invites = db_user.get('total_invites', 0)
-      streak = db_user.get('streak', 0)
-      generated_keys = db_user.get('total_keys', 0)
-      username = db_user.get('username', '')
+    db_user = await get_user(user_id, first_name)
+    points = db_user.get('points', 0)
+    invites = db_user.get('total_invites', 0)
+    streak = db_user.get('streak', 0)
+    generated_keys = db_user.get('total_keys', 0)
+    username = db_user.get('username', '')
     
     # Username link
     username_text = f"@{username}" if username else "N/A"
