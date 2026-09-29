@@ -1520,7 +1520,7 @@ async def show_main_menu(message_or_callback, first_name: str):
                 photo=WELCOME_IMAGE,
                 caption=join_text,
                 reply_markup=get_channel_join_keyboard()
-            )
+)
         else:
             await message_or_callback.answer_photo(
                 photo=WELCOME_IMAGE,
