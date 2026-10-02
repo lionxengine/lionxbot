@@ -14,9 +14,9 @@ from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CopyTextButton, InputMediaVideo
 
-# Video URLs (direct MP4 from Streamable)
-MAIN_MENU_VIDEO = "https://cdn.streamable.com/video/mp4/5s6yt1.mp4"
-WELCOME_VIDEO = "https://cdn.streamable.com/video/mp4/a6g1z3.mp4"
+# Telegram file IDs (more reliable than URLs)
+MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIsNmq_jRh7kV0y76e8jrAGZvxIj14dAAIJHQAC2kH4URTOucxJcpJlPQQ"
+WELCOME_VIDEO = "BAACAgQAAxkBAAIsOmq_jYRDly0AAbeqnvamMAyHSD1llwACAyEAAsrPAAFSgzrU1wyCnUo9BA"
 
 TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 
