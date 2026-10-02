@@ -439,7 +439,7 @@ def get_main_menu_keyboard():
         [InlineKeyboardButton(text='<tg-emoji emoji-id="5883964170268840032">👤</tg-emoji> Profile', callback_data="profile", style="primary"),
          InlineKeyboardButton(text='<tg-emoji emoji-id="5877530150345641603">📨</tg-emoji> Invite', callback_data="invite", style="primary")],
         [InlineKeyboardButton(text='<tg-emoji emoji-id="5909201569898827582">📝</tg-emoji> Report', callback_data="report", style="danger"),
-         InlineKeyboardButton(text="📜 Terms", callback_data="terms", style="danger")],
+         InlineKeyboardButton(text='<tg-emoji emoji-id="5775887550262546277">📜</tg-emoji> Terms', callback_data="terms", style="danger")],
         [InlineKeyboardButton(text="📁 Download File", callback_data="download_file", style="success")]
     ])
 
