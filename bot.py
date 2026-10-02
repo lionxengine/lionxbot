@@ -4,6 +4,7 @@ import os
 import aiohttp
 import json
 import random
+import re
 from datetime import datetime, timedelta, timezone
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
@@ -431,16 +432,22 @@ def get_welcome_keyboard():
         [InlineKeyboardButton(text="✅ Verify", callback_data="verify", style="primary")]
     ])
 
+def menu_button(text: str, emoji_id: str = None, **kwargs):
+    """Inline button with a custom emoji icon (Telegram's icon_custom_emoji_id field)."""
+    if emoji_id:
+        return InlineKeyboardButton(text=text, icon_custom_emoji_id=emoji_id, **kwargs)
+    return InlineKeyboardButton(text=text, **kwargs)
+
 def get_main_menu_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
-        [InlineKeyboardButton(text='<tg-emoji emoji-id="6032937473162614352">🗝️</tg-emoji> Daily Key', callback_data="daily_key", style="primary")],
-        [InlineKeyboardButton(text='<tg-emoji emoji-id="5988023995125993550">⚙️</tg-emoji> Gen Key', callback_data="generate_key", style="success"),
-         InlineKeyboardButton(text='<tg-emoji emoji-id="5936170807716745162">⌛</tg-emoji> Streak', callback_data="check_streak", style="success")],
-        [InlineKeyboardButton(text='<tg-emoji emoji-id="5883964170268840032">👤</tg-emoji> Profile', callback_data="profile", style="primary"),
-         InlineKeyboardButton(text='<tg-emoji emoji-id="5877530150345641603">📨</tg-emoji> Invite', callback_data="invite", style="primary")],
-        [InlineKeyboardButton(text='<tg-emoji emoji-id="5909201569898827582">📝</tg-emoji> Report', callback_data="report", style="danger"),
-         InlineKeyboardButton(text='<tg-emoji emoji-id="5775887550262546277">📜</tg-emoji> Terms', callback_data="terms", style="danger")],
-        [InlineKeyboardButton(text='<tg-emoji emoji-id="6030861234432121355">📁</tg-emoji> Download File', callback_data="download_file", style="success")]
+        [menu_button("Daily Key", "6032937473162614352", callback_data="daily_key", style="primary")],
+        [menu_button("Gen Key", "5988023995125993550", callback_data="generate_key", style="success"),
+         menu_button("Streak", "5936170807716745162", callback_data="check_streak", style="success")],
+        [menu_button("Profile", "5883964170268840032", callback_data="profile", style="primary"),
+         menu_button("Invite", "5877530150345641603", callback_data="invite", style="primary")],
+        [menu_button("Report", "5909201569898827582", callback_data="report", style="danger"),
+         menu_button("Terms", "5775887550262546277", callback_data="terms", style="danger")],
+        [menu_button("Download File", "6030861234432121355", callback_data="download_file", style="success")]
     ])
 
 @dp.message(CommandStart())
@@ -1584,6 +1591,16 @@ async def send_video_or_text(target, video_ref: str, text: str, keyboard=None):
             reply_markup=keyboard
         )
     except TelegramBadRequest as e:
+        if "<tg-emoji" in text:
+            plain_text = re.sub(r'<tg-emoji emoji-id="[^"]+">(.*?)</tg-emoji>', r'\1', text)
+            try:
+                return await target.answer_video(
+                    video=video_ref,
+                    caption=plain_text,
+                    reply_markup=keyboard
+                )
+            except TelegramBadRequest:
+                text = plain_text
         logging.warning("Video send failed (%s) - sending text only", e)
         return await target.answer(text, reply_markup=keyboard)
 
