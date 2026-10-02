@@ -13,6 +13,7 @@ from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CopyTextButton, InputMediaVideo
+from aiogram.exceptions import TelegramBadRequest
 
 # Telegram file IDs (more reliable than URLs)
 MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIsNmq_jRh7kV0y76e8jrAGZvxIj14dAAIJHQAC2kH4URTOucxJcpJlPQQ"
@@ -1558,18 +1559,32 @@ async def show_main_menu(message_or_callback, first_name: str):
             await message_or_callback.message.delete()
         except:
             pass
-        await message_or_callback.message.answer_video(
-            video=MAIN_MENU_VIDEO,
-            caption=main_menu_text,
-            reply_markup=get_main_menu_keyboard()
+        await send_video_or_text(
+            message_or_callback.message,
+            MAIN_MENU_VIDEO,
+            main_menu_text,
+            get_main_menu_keyboard()
         )
     else:
         # It's a message
-        await message_or_callback.answer_video(
-            video=MAIN_MENU_VIDEO,
-            caption=main_menu_text,
-            reply_markup=get_main_menu_keyboard()
+        await send_video_or_text(
+            message_or_callback,
+            MAIN_MENU_VIDEO,
+            main_menu_text,
+            get_main_menu_keyboard()
         )
+
+async def send_video_or_text(target, video_ref: str, text: str, keyboard=None):
+    """Send a video with caption; fall back to plain text if video is invalid."""
+    try:
+        return await target.answer_video(
+            video=video_ref,
+            caption=text,
+            reply_markup=keyboard
+        )
+    except TelegramBadRequest as e:
+        logging.warning("Video send failed (%s) - sending text only", e)
+        return await target.answer(text, reply_markup=keyboard)
 
 async def send_menu_photo(callback: types.CallbackQuery, caption: str, keyboard):
     try:
@@ -1579,11 +1594,23 @@ async def send_menu_photo(callback: types.CallbackQuery, caption: str, keyboard)
         )
     except:
         await callback.message.delete()
-        await callback.message.answer_video(
-            video=MAIN_MENU_VIDEO,
-            caption=caption,
-            reply_markup=keyboard
+        await send_video_or_text(
+            callback.message,
+            MAIN_MENU_VIDEO,
+            caption,
+            keyboard
         )
+
+@dp.message(F.video)
+async def admin_get_file_id(message: types.Message):
+    """Admin-only helper: returns the file_id of a video sent to this bot."""
+    if not message.from_user or message.from_user.id != ADMIN_ID:
+        return
+    await message.answer(
+        "<b>File ID for this video:</b>\n"
+        f"<code>{message.video.file_id}</code>\n\n"
+        "<i>Is video ka size check karo: 50MB se kam ho to theek hai.</i>"
+    )
 
 async def main():
     logging.basicConfig(level=logging.INFO)
