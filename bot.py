@@ -1545,14 +1545,7 @@ async def show_main_menu(message_or_callback, first_name: str):
     # Username link
     username_text = f"@{username}" if username else "N/A"
     
-    main_menu_text = (
-        f"{MENU_EMOJI} <b>Hi <i>{first_name}</i></b>\n"
-        f"🔗 <b>Username:</b> <a href='https://t.me/{username}'>{username_text}</a>\n\n"
-        f"⭐ <b>Points:</b> <code>{points:.1f}</code>\n"
-        f"👥 <b>Invites:</b> <code>{invites}</code>\n"
-        f"⌛ <b>Streak:</b> <code>{streak}</code> days\n"
-        f"🔑 <b>Generated Keys:</b> <code>{generated_keys}</code>"
-    )
+    main_menu_text = MENU_EMOJI
     
     if hasattr(message_or_callback, 'message'):
         # It's a callback query
