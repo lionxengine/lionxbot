@@ -434,7 +434,7 @@ def get_welcome_keyboard():
 def get_main_menu_keyboard():
     return InlineKeyboardMarkup(inline_keyboard=[
         [InlineKeyboardButton(text='<tg-emoji emoji-id="6005570495603282482">🗝️</tg-emoji> Daily Key', callback_data="daily_key", style="primary")],
-        [InlineKeyboardButton(text="⚙️ Gen Key", callback_data="generate_key", style="success"),
+        [InlineKeyboardButton(text='<tg-emoji emoji-id="5988023995125993550">⚙️</tg-emoji> Gen Key', callback_data="generate_key", style="success"),
          InlineKeyboardButton(text="⌛ Streak", callback_data="check_streak", style="success")],
         [InlineKeyboardButton(text="👤 Profile", callback_data="profile", style="primary"),
          InlineKeyboardButton(text="📨 Invite", callback_data="invite", style="primary")],
