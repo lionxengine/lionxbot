@@ -16,8 +16,8 @@ from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CopyTextBu
 from aiogram.exceptions import TelegramBadRequest
 
 # Telegram file IDs (more reliable than URLs)
-MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIsNmq_jRh7kV0y76e8jrAGZvxIj14dAAIJHQAC2kH4URTOucxJcpJlPQQ"
-WELCOME_VIDEO = "BAACAgQAAxkBAAIsOmq_jYRDly0AAbeqnvamMAyHSD1llwACAyEAAsrPAAFSgzrU1wyCnUo9BA"
+MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIXPmq_ik-l55SWmAABKltulMxM8EDI_AAC4iAAAsrPAAFSF5Tv6F5S4vE9BA"
+WELCOME_VIDEO = "BAACAgQAAxkBAAIXTWq_kQ45dI57Ed-Y5Ik7_OBt8xXyAAIDIQACys8AAVLdliqiYWx8aD0E"
 
 TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 
