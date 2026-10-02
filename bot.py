@@ -7,12 +7,16 @@ import random
 from datetime import datetime, timedelta, timezone
 from aiogram import Bot, Dispatcher, types, F
 from aiogram.filters import CommandStart, Command
-from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CopyTextButton
 from aiogram.enums import ParseMode
 from aiogram.client.default import DefaultBotProperties
 from aiogram.fsm.context import FSMContext
 from aiogram.fsm.state import State, StatesGroup
 from aiogram.fsm.storage.memory import MemoryStorage
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton, CopyTextButton, InputMediaVideo
+
+# Video URLs (direct MP4 from Streamable)
+MAIN_MENU_VIDEO = "https://cdn.streamable.com/video/mp4/5s6yt1.mp4"
+WELCOME_VIDEO = "https://cdn.streamable.com/video/mp4/a6g1z3.mp4"
 
 TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 
@@ -437,9 +441,6 @@ def get_main_menu_keyboard():
         [InlineKeyboardButton(text="📁 Download File", callback_data="download_file", style="success")]
     ])
 
-MAIN_MENU_IMAGE = "https://i.postimg.cc/nzNxnc65/file-0000000047008211854652a650c80572.png"
-WELCOME_IMAGE = "https://i.postimg.cc/rpdYMCMX/wide-high-energy-digital-banner-thumbnail-with-a.png"
-
 @dp.message(CommandStart())
 async def start_cmd(message: types.Message):
     user = message.from_user
@@ -490,9 +491,9 @@ async def start_cmd(message: types.Message):
             f"Please wait and try again later.\n\n"
             f"<i>We'll be back soon!</i>"
         )
-        await message.answer_photo(
-            photo=WELCOME_IMAGE,
-            caption=maint_text,
+        await message.answer_video(
+                video=WELCOME_VIDEO,
+                caption=maint_text,
         )
         return
     
@@ -506,8 +507,8 @@ async def start_cmd(message: types.Message):
             f"🦁 <b>LionX Engine</b>\n\n"
             f"Click the button below to join, then press <b>\"I've Joined\"</b> to continue."
         )
-        await message.answer_photo(
-            photo=WELCOME_IMAGE,
+        await message.answer_video(
+            video=WELCOME_VIDEO,
             caption=join_text,
             reply_markup=get_channel_join_keyboard()
         )
@@ -578,8 +579,8 @@ async def admin_panel_cmd(message: types.Message):
         [InlineKeyboardButton(text="🔙 Close", callback_data="admin_close", style="danger")]
     ])
     
-    await message.answer_photo(
-        photo=MAIN_MENU_IMAGE,
+    await message.answer_video(
+        video=MAIN_MENU_VIDEO,
         caption=panel_text,
         reply_markup=admin_keyboard
     )
@@ -621,10 +622,13 @@ async def admin_maintenance_callback(callback: types.CallbackQuery):
         [InlineKeyboardButton(text="🔙 Close", callback_data="admin_close", style="danger")]
     ])
     
-    await callback.message.edit_caption(
-        caption=panel_text,
-        reply_markup=admin_keyboard
-    )
+    try:
+        await callback.message.edit_caption(
+            caption=panel_text,
+            reply_markup=admin_keyboard
+        )
+    except:
+        pass
 
 @dp.callback_query(F.data == "admin_reset_all_daily")
 async def admin_reset_all_daily_callback(callback: types.CallbackQuery):
@@ -942,8 +946,8 @@ async def check_join_callback(callback: types.CallbackQuery):
                 f"🤝 By using this bot, you <b>agree</b> to all terms above.\n"
                 f"<i>Violations will be dealt with zero tolerance.</i>"
             )
-            await callback.message.answer_photo(
-                photo=WELCOME_IMAGE,
+await callback.message.answer_video(
+                video=WELCOME_VIDEO,
                 caption=terms_text,
                 reply_markup=get_terms_keyboard()
             )
@@ -981,8 +985,8 @@ async def verify_callback(callback: types.CallbackQuery):
         f"<i>Violations will be dealt with zero tolerance.</i>"
     )
     await callback.message.delete()
-    await callback.message.answer_photo(
-        photo=WELCOME_IMAGE,
+    await callback.message.answer_video(
+        video=WELCOME_VIDEO,
         caption=terms_text,
         reply_markup=get_terms_keyboard()
     )
@@ -1516,15 +1520,15 @@ async def show_main_menu(message_or_callback, first_name: str):
         )
         if hasattr(message_or_callback, 'message'):
             await message_or_callback.message.delete()
-            await message_or_callback.message.answer_photo(
-                photo=WELCOME_IMAGE,
+            await message_or_callback.message.answer_video(
+                video=WELCOME_VIDEO,
                 caption=join_text,
                 reply_markup=get_channel_join_keyboard()
 )
         else:
-            await message_or_callback.answer_photo(
-                photo=WELCOME_IMAGE,
-                caption=join_text,
+await message_or_callback.answer_video(
+            video=WELCOME_VIDEO,
+            caption=join_text,
                 reply_markup=get_channel_join_keyboard()
             )
         return
@@ -1554,8 +1558,8 @@ async def show_main_menu(message_or_callback, first_name: str):
             await message_or_callback.message.delete()
         except:
             pass
-        await message_or_callback.message.answer_photo(
-            photo=MAIN_MENU_IMAGE,
+        await message_or_callback.message.answer_video(
+            video=MAIN_MENU_VIDEO,
             caption=main_menu_text,
             reply_markup=get_main_menu_keyboard()
         )
