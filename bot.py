@@ -20,6 +20,10 @@ from aiogram.exceptions import TelegramBadRequest
 MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIXPmq_ik-l55SWmAABKltulMxM8EDI_AAC4iAAAsrPAAFSF5Tv6F5S4vE9BA"
 WELCOME_VIDEO = "BAACAgQAAxkBAAIXTWq_kQ45dI57Ed-Y5Ik7_OBt8xXyAAIDIQACys8AAVLdliqiYWx8aD0E"
 MENU_EMOJI = '<tg-emoji emoji-id="6158868864923869550">🔱</tg-emoji>'
+POINTS_EMOJI = '<tg-emoji emoji-id="5776159202649051327">⭐</tg-emoji>'
+INVITES_EMOJI = '<tg-emoji emoji-id="5920090136627908485">👥</tg-emoji>'
+STREAK_EMOJI = '<tg-emoji emoji-id="5900104897885376843">⌛</tg-emoji>'
+KEYS_EMOJI = '<tg-emoji emoji-id="6005570495603282482">🔑</tg-emoji>'
 
 TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 
@@ -1547,18 +1551,13 @@ async def show_main_menu(message_or_callback, first_name: str):
     invites = db_user.get('total_invites', 0)
     streak = db_user.get('streak', 0)
     generated_keys = db_user.get('total_keys', 0)
-    username = db_user.get('username', '')
-    
-    # Username link
-    username_text = f"@{username}" if username else "N/A"
     
     main_menu_text = (
-        f"{MENU_EMOJI} <b>{first_name}</b>\n"
-        f"🔗 <b>Username:</b> <a href='https://t.me/{username}'>{username_text}</a>\n\n"
-        f"⭐ <b>Points:</b> <code>{points:.1f}</code>\n"
-        f"👥 <b>Invites:</b> <code>{invites}</code>\n"
-        f"⌛ <b>Streak:</b> <code>{streak}</code> days\n"
-        f"🔑 <b>Generated Keys:</b> <code>{generated_keys}</code>"
+        f"{MENU_EMOJI} <b>{first_name}</b>\n\n"
+        f"{POINTS_EMOJI} <b>Points:</b> <code>{points:.1f}</code>\n"
+        f"{INVITES_EMOJI} <b>Invites:</b> <code>{invites}</code>\n"
+        f"{STREAK_EMOJI} <b>Streak:</b> <code>{streak}</code> days\n"
+        f"{KEYS_EMOJI} <b>Generated Keys:</b> <code>{generated_keys}</code>"
     )
     
     if hasattr(message_or_callback, 'message'):
