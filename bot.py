@@ -30,6 +30,7 @@ TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 # Config
 CHANNEL_USERNAME = "LionX_Engine"
 CHANNEL_URL = "https://t.me/LionX_Engine"
+DAILY_KEY_VALID_HOURS = 12
 RESELLER_NAME = "Khalid Khan"
 
 bot = Bot(token=TOKEN, default=DefaultBotProperties(parse_mode=ParseMode.HTML))
@@ -287,7 +288,7 @@ class FirebaseClient:
     
     async def save_key(self, key: str, duration_days: int, user_id: int, user_name: str, is_daily: bool = False):
         """Save key to Firestore with panel-compatible format.
-        - Daily keys: Expiry starts IMMEDIATELY when claimed (4 hours from now)
+        - Daily keys: Expiry starts IMMEDIATELY when claimed (DAILY_KEY_VALID_HOURS hours from now)
         - Regular keys: Expiry starts ONLY when device activated (HWID bind)
         """
         session = await self.get_session()
@@ -296,9 +297,9 @@ class FirebaseClient:
         stored_duration = 0 if is_daily else duration_days
         created_at = datetime.now(timezone.utc)
         
-        # For daily keys, set expiry to 4 hours from NOW
+        # For daily keys, set expiry to DAILY_KEY_VALID_HOURS hours from NOW
         if is_daily:
-            expiry_at = created_at + timedelta(hours=4)
+            expiry_at = created_at + timedelta(hours=DAILY_KEY_VALID_HOURS)
             status = 'active'  # Daily keys are immediately active
         else:
             expiry_at = None
@@ -561,7 +562,7 @@ async def reset_daily_cmd(message: types.Message):
             f"🔄 <b>Daily Key Reset</b>\n\n"
             f"Your daily key claim has been <b>reset by admin</b>.\n\n"
             f"✅ You can now claim your <b>free daily key</b> again!\n\n"
-            f"🗝️ Go to <b>Daily Key</b> and click <b>Confirm</b> to generate a new 4-hour key.",
+            f"🗝️ Go to <b>Daily Key</b> and click <b>Confirm</b> to generate a new {DAILY_KEY_VALID_HOURS}-hour key.",
             reply_markup=InlineKeyboardMarkup(inline_keyboard=[
                 [InlineKeyboardButton(text="🗝️ Claim Daily Key", callback_data="daily_key", style="primary")]
             ])
@@ -1087,7 +1088,7 @@ async def daily_key_callback(callback: types.CallbackQuery, state: FSMContext):
             f"<b>⌛ Daily Key Already Claimed</b>\n\n"
             f"✅ <b>Status:</b> Already claimed today\n"
             f"⏰ <b>Next claim:</b> {next_claim_text}\n\n"
-            f"🔄 Come back tomorrow for your free 4-hour key!"
+            f"🔄 Come back tomorrow for your free {DAILY_KEY_VALID_HOURS}-hour key!"
         )
         await send_menu_photo(callback, claimed_text, InlineKeyboardMarkup(inline_keyboard=[
             [InlineKeyboardButton(text="🔙 Back", callback_data="back_main", style="primary")]
@@ -1097,8 +1098,8 @@ async def daily_key_callback(callback: types.CallbackQuery, state: FSMContext):
     await state.set_state(DailyKeyState.waiting_for_confirm)
     daily_key_text = (
         f"<b>🗝️ Claim Your Free Daily Key</b>\n\n"
-        f"⚠️ <b>Note:</b> The 4-hour timer starts <b>IMMEDIATELY</b> when you confirm.\n\n"
-        f"⏰ <b>Expire Time:</b> <code>4 Hours from activation</code>\n\n"
+        f"⚠️ <b>Note:</b> The {DAILY_KEY_VALID_HOURS}-hour timer starts <b>IMMEDIATELY</b> when you confirm.\n\n"
+        f"⏰ <b>Expire Time:</b> <code>{DAILY_KEY_VALID_HOURS} Hours from activation</code>\n\n"
         f"👇 Please click the <b>Confirm</b> button to activate your key."
     )
     await send_menu_photo(callback, daily_key_text, get_daily_key_confirm_keyboard())
@@ -1127,9 +1128,9 @@ async def confirm_daily_key_callback(callback: types.CallbackQuery, state: FSMCo
     
     done_text = (
         f"<b>✅ Daily Key Activated!</b>\n\n"
-        f"<b>You have activated your 4 hours key</b>\n\n"
+        f"<b>You have activated your {DAILY_KEY_VALID_HOURS} hours key</b>\n\n"
         f"🗝️ <b>Your Key:</b>\n<code>{key}</code>\n\n"
-        f"⏰ <b>Expire Time:</b> <code>4 Hours from NOW</code>\n\n"
+        f"⏰ <b>Expire Time:</b> <code>{DAILY_KEY_VALID_HOURS} Hours from NOW</code>\n\n"
         f"🔔 You will get notified once your key expires.\n\n"
         f"🦁 <b>Enjoy LionX!</b>"
     )
