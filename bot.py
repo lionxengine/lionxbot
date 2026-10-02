@@ -25,7 +25,7 @@ INVITES_EMOJI = '<tg-emoji emoji-id="5920090136627908485">👥</tg-emoji>'
 STREAK_EMOJI = '<tg-emoji emoji-id="5900104897885376843">⌛</tg-emoji>'
 KEYS_EMOJI = '<tg-emoji emoji-id="6005570495603282482">🔑</tg-emoji>'
 
-TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
+TOKEN = "8753339785:AAEPPkkDJTorejlg8W1k-Ux1fCRKyIKQ_J4"
 
 # Config
 CHANNEL_USERNAME = "LionX_Engine"
