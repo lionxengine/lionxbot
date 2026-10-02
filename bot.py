@@ -946,14 +946,14 @@ async def check_join_callback(callback: types.CallbackQuery):
                 f"🤝 By using this bot, you <b>agree</b> to all terms above.\n"
                 f"<i>Violations will be dealt with zero tolerance.</i>"
             )
-await callback.message.answer_video(
+            await callback.message.answer_video(
                 video=WELCOME_VIDEO,
                 caption=terms_text,
                 reply_markup=get_terms_keyboard()
             )
         else:
             await show_main_menu(callback, callback.from_user.first_name or "User")
-        await callback.answer("Welcome!")
+            await callback.answer("Welcome!")
     else:
         await callback.answer("❌ You haven't joined the channel yet!", show_alert=True)
 
@@ -1524,11 +1524,11 @@ async def show_main_menu(message_or_callback, first_name: str):
                 video=WELCOME_VIDEO,
                 caption=join_text,
                 reply_markup=get_channel_join_keyboard()
-)
+            )
         else:
-await message_or_callback.answer_video(
-            video=WELCOME_VIDEO,
-            caption=join_text,
+            await message_or_callback.answer_video(
+                video=WELCOME_VIDEO,
+                caption=join_text,
                 reply_markup=get_channel_join_keyboard()
             )
         return
@@ -1565,8 +1565,8 @@ await message_or_callback.answer_video(
         )
     else:
         # It's a message
-        await message_or_callback.answer_photo(
-            photo=MAIN_MENU_IMAGE,
+        await message_or_callback.answer_video(
+            video=MAIN_MENU_VIDEO,
             caption=main_menu_text,
             reply_markup=get_main_menu_keyboard()
         )
@@ -1579,8 +1579,8 @@ async def send_menu_photo(callback: types.CallbackQuery, caption: str, keyboard)
         )
     except:
         await callback.message.delete()
-        await callback.message.answer_photo(
-            photo=MAIN_MENU_IMAGE,
+        await callback.message.answer_video(
+            video=MAIN_MENU_VIDEO,
             caption=caption,
             reply_markup=keyboard
         )
