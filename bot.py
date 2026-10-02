@@ -18,6 +18,7 @@ from aiogram.exceptions import TelegramBadRequest
 # Telegram file IDs (more reliable than URLs)
 MAIN_MENU_VIDEO = "BAACAgQAAxkBAAIXPmq_ik-l55SWmAABKltulMxM8EDI_AAC4iAAAsrPAAFSF5Tv6F5S4vE9BA"
 WELCOME_VIDEO = "BAACAgQAAxkBAAIXTWq_kQ45dI57Ed-Y5Ik7_OBt8xXyAAIDIQACys8AAVLdliqiYWx8aD0E"
+MENU_EMOJI = '<tg-emoji emoji-id="6158868864923869550">🔱</tg-emoji>'
 
 TOKEN = "8753339785:AAFNUMnfnI89EpzxdGJf7Zs1MOaDMiLUYi8"
 
@@ -1545,7 +1546,7 @@ async def show_main_menu(message_or_callback, first_name: str):
     username_text = f"@{username}" if username else "N/A"
     
     main_menu_text = (
-        f"<b>Hi <i>{first_name}</i></b>\n"
+        f"{MENU_EMOJI} <b>Hi <i>{first_name}</i></b>\n"
         f"🔗 <b>Username:</b> <a href='https://t.me/{username}'>{username_text}</a>\n\n"
         f"⭐ <b>Points:</b> <code>{points:.1f}</code>\n"
         f"👥 <b>Invites:</b> <code>{invites}</code>\n"
@@ -1600,7 +1601,6 @@ async def send_menu_photo(callback: types.CallbackQuery, caption: str, keyboard)
             caption,
             keyboard
         )
-
 @dp.message(F.video)
 async def admin_get_file_id(message: types.Message):
     """Admin-only helper: returns the file_id of a video sent to this bot."""
