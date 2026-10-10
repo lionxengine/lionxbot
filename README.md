@@ -1,15 +1,15 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=LionX%20Bot&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=38" alt="LionX Bot"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=150&section=header&text=LionX%20Bot&fontSize=52&fontColor=ffffff&animation=fadeIn&fontAlignY=38" alt="LionX Bot"/>
 
-<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=F7B731&center=true&vCenter=true&width=600&lines=Telegram+Bot+for+LionX+Engine;Keys+%E2%80%A2+Rewards+%E2%80%A2+Community;Built+with+Python+%2B+aiogram" alt="Typing SVG"/>
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=17&pause=1000&color=F7B731&center=true&vCenter=true&width=440&lines=Telegram+Bot+for+LionX+Engine;Keys+%E2%80%A2+Rewards+%E2%80%A2+Community;Built+with+Python+%2B+aiogram" alt="Typing SVG"/>
 
 <br/>
 
-[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![aiogram](https://img.shields.io/badge/aiogram-3.x-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://docs.aiogram.dev/)
-[![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)](https://firebase.google.com/)
-[![License](https://img.shields.io/badge/License-Proprietary-red?style=for-the-badge)](LICENSE)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=flat-square&logo=python&logoColor=white)](https://www.python.org/)
+[![aiogram](https://img.shields.io/badge/aiogram-3.x-2CA5E0?style=flat-square&logo=telegram&logoColor=white)](https://docs.aiogram.dev/)
+[![Firebase](https://img.shields.io/badge/Firebase-Firestore-FFCA28?style=flat-square&logo=firebase&logoColor=black)](https://firebase.google.com/)
+[![License](https://img.shields.io/badge/License-Proprietary-red?style=flat-square)](LICENSE)
 
 [<img src="assets/icons/megaphone.svg" width="16" height="16" alt=""/> Channel](https://t.me/LionX_Engine) • [<img src="assets/icons/comment-discussion.svg" width="16" height="16" alt=""/> Support](https://t.me/LionXsupport_bot) • [<img src="assets/icons/book.svg" width="16" height="16" alt=""/> Docs](#-table-of-contents)
 
@@ -17,50 +17,50 @@
 
 ---
 
-## <img src="assets/icons/book.svg" width="24" height="24" alt=""/> Table of Contents
+## <img src="assets/icons/book.svg" width="20" height="20" alt=""/> Table of Contents
 
-- [ Features](#-features)
-- [ Tech Stack](#-tech-stack)
-- [ Project Structure](#-project-structure)
-- [ Quick Start](#-quick-start)
-- [ Configuration](#-configuration)
-- [ Bot Commands](#-bot-commands)
-- [ User Guide](#-user-guide)
-- [ Admin Guide](#-admin-guide)
-- [ Points Economy](#-points-economy)
-- [ Key System](#-key-system)
-- [ How It Works](#-how-it-works)
-- [ Deployment](#-deployment)
-- [ Contributing](#-contributing)
-- [ Support](#-support)
+- [Features](#features)
+- [Tech Stack](#tech-stack)
+- [Project Structure](#project-structure)
+- [Quick Start](#quick-start)
+- [Configuration](#configuration)
+- [Bot Commands](#bot-commands)
+- [User Guide](#user-guide)
+- [Admin Guide](#admin-guide)
+- [Points Economy](#points-economy)
+- [Key System](#key-system)
+- [How It Works](#how-it-works)
+- [Deployment](#deployment)
+- [Contributing](#contributing)
+- [Support](#support)
 
 ---
 
-## <img src="assets/icons/star.svg" width="24" height="24" alt=""/> Features
+## <img src="assets/icons/star.svg" width="20" height="20" alt=""/> Features
 
 | Feature | Description |
 |---|---|
-| <img src="assets/icons/lock.svg" width="18" height="18" alt=""/> **Channel Gate** | Users must join the official channel before using the bot |
-| <img src="assets/icons/key.svg" width="18" height="18" alt=""/> **Daily Free Key** | Every user can claim a free 12-hour key once every 24 hours |
-| <img src="assets/icons/star.svg" width="18" height="18" alt=""/> **Points System** | Earn points via invites and daily streaks |
-| <img src="assets/icons/tag.svg" width="18" height="18" alt=""/> **Key Shop** | Spend points on 1 / 3 / 7 / 15 / 30-day keys |
-| <img src="assets/icons/people.svg" width="18" height="18" alt=""/> **Referral Program** | Invite friends with your personal link, earn +1 point each |
-| <img src="assets/icons/flame.svg" width="18" height="18" alt=""/> **Daily Streaks** | Check in daily for points + milestone bonuses |
-| <img src="assets/icons/graph.svg" width="18" height="18" alt=""/> **Profile Stats** | Points, invites, streak and key history at a glance |
-| <img src="assets/icons/pencil.svg" width="18" height="18" alt=""/> **Report System** | Users can send reports; admins reply directly |
-| <img src="assets/icons/upload.svg" width="18" height="18" alt=""/> **File Distribution** | Admins upload files (APK, etc.), users download in-bot |
-| <img src="assets/icons/megaphone.svg" width="18" height="18" alt=""/> **Broadcast** | Admins can message all users at once |
-| <img src="assets/icons/tools.svg" width="18" height="18" alt=""/> **Maintenance Mode** | One-tap toggle to pause the bot for everyone |
-| <img src="assets/icons/video.svg" width="18" height="18" alt=""/> **Rich Media Menus** | Video-powered welcome and menu screens |
+| <img src="assets/icons/lock.svg" width="16" height="16" alt=""/> **Channel Gate** | Users must join the official channel before using the bot |
+| <img src="assets/icons/key.svg" width="16" height="16" alt=""/> **Daily Free Key** | Every user can claim a free 12-hour key once every 24 hours |
+| <img src="assets/icons/star.svg" width="16" height="16" alt=""/> **Points System** | Earn points via invites and daily streaks |
+| <img src="assets/icons/tag.svg" width="16" height="16" alt=""/> **Key Shop** | Spend points on 1 / 3 / 7 / 15 / 30-day keys |
+| <img src="assets/icons/people.svg" width="16" height="16" alt=""/> **Referral Program** | Invite friends with your personal link, earn +1 point each |
+| <img src="assets/icons/flame.svg" width="16" height="16" alt=""/> **Daily Streaks** | Check in daily for points + milestone bonuses |
+| <img src="assets/icons/graph.svg" width="16" height="16" alt=""/> **Profile Stats** | Points, invites, streak and key history at a glance |
+| <img src="assets/icons/pencil.svg" width="16" height="16" alt=""/> **Report System** | Users can send reports; admins reply directly |
+| <img src="assets/icons/upload.svg" width="16" height="16" alt=""/> **File Distribution** | Admins upload files (APK, etc.), users download in-bot |
+| <img src="assets/icons/megaphone.svg" width="16" height="16" alt=""/> **Broadcast** | Admins can message all users at once |
+| <img src="assets/icons/tools.svg" width="16" height="16" alt=""/> **Maintenance Mode** | One-tap toggle to pause the bot for everyone |
+| <img src="assets/icons/video.svg" width="16" height="16" alt=""/> **Rich Media Menus** | Video-powered welcome and menu screens |
 
 ---
 
-## <img src="assets/icons/tools.svg" width="24" height="24" alt=""/> Tech Stack
+## <img src="assets/icons/tools.svg" width="20" height="20" alt=""/> Tech Stack
 
 <div align="center">
 
-<img src="https://skillicons.dev/icons?i=python,firebase&theme=dark" alt="Python Firebase" height="60"/>
-<img src="https://cdn.simpleicons.org/telegram/2CA5E0" alt="Telegram" height="55"/>
+<img src="https://skillicons.dev/icons?i=python,firebase&theme=dark" alt="Python Firebase" height="42"/>
+<img src="https://cdn.simpleicons.org/telegram/2CA5E0" alt="Telegram" height="38"/>
 
 </div>
 
@@ -74,7 +74,7 @@
 
 ---
 
-## <img src="assets/icons/file-directory.svg" width="24" height="24" alt=""/> Project Structure
+## <img src="assets/icons/file-directory.svg" width="20" height="20" alt=""/> Project Structure
 
 ```
 lionxbot/
@@ -90,7 +90,7 @@ lionxbot/
 
 ---
 
-## <img src="assets/icons/rocket.svg" width="24" height="24" alt=""/> Quick Start
+## <img src="assets/icons/rocket.svg" width="20" height="20" alt=""/> Quick Start
 
 ### Prerequisites
 
@@ -142,7 +142,7 @@ INFO:aiogram.dispatcher:Start polling
 
 ---
 
-## <img src="assets/icons/gear.svg" width="24" height="24" alt=""/> Configuration
+## <img src="assets/icons/gear.svg" width="20" height="20" alt=""/> Configuration
 
 All runtime settings live at the top of `bot.py`:
 
@@ -168,7 +168,7 @@ All runtime settings live at the top of `bot.py`:
 
 ---
 
-## <img src="assets/icons/terminal.svg" width="24" height="24" alt=""/> Bot Commands
+## <img src="assets/icons/terminal.svg" width="20" height="20" alt=""/> Bot Commands
 
 | Command | Who | Description |
 |---|---|---|
@@ -178,7 +178,7 @@ All runtime settings live at the top of `bot.py`:
 
 ---
 
-## <img src="assets/icons/person.svg" width="24" height="24" alt=""/> User Guide
+## <img src="assets/icons/person.svg" width="20" height="20" alt=""/> User Guide
 
 ### Getting started
 1. Press **/start**
@@ -214,23 +214,23 @@ Use **Report** in the menu, describe your problem, and the admin can reply to yo
 
 ---
 
-## <img src="assets/icons/shield-check.svg" width="24" height="24" alt=""/> Admin Guide
+## <img src="assets/icons/shield-check.svg" width="20" height="20" alt=""/> Admin Guide
 
 Open the panel with **/admin**:
 
 | Action | What it does |
 |---|---|
-| <img src="assets/icons/megaphone.svg" width="18" height="18" alt=""/> **Broadcast** | Send a message to every bot user |
-| <img src="assets/icons/upload.svg" width="18" height="18" alt=""/> **Add File** | Upload a file (e.g. APK) for users to download |
+| <img src="assets/icons/megaphone.svg" width="16" height="16" alt=""/> **Broadcast** | Send a message to every bot user |
+| <img src="assets/icons/upload.svg" width="16" height="16" alt=""/> **Add File** | Upload a file (e.g. APK) for users to download |
 |  **List Files** | View / manage distributed files |
-| <img src="assets/icons/people.svg" width="18" height="18" alt=""/> **User Stats** | Total users, points and activity overview |
-| <img src="assets/icons/tools.svg" width="18" height="18" alt=""/> **Maintenance Mode** | Toggle — pauses the bot for everyone except admin |
+| <img src="assets/icons/people.svg" width="16" height="16" alt=""/> **User Stats** | Total users, points and activity overview |
+| <img src="assets/icons/tools.svg" width="16" height="16" alt=""/> **Maintenance Mode** | Toggle — pauses the bot for everyone except admin |
 |  **Reset All Daily Keys** | Let everyone claim the daily key again |
 |  **Reply** | Answer user reports one-to-one |
 
 ---
 
-## <img src="assets/icons/graph.svg" width="24" height="24" alt=""/> Points Economy
+## <img src="assets/icons/graph.svg" width="20" height="20" alt=""/> Points Economy
 
 ```
 Invite friend  ──→  +1 point ──→  Key Shop  ──→  LIONX-XXXXX-XXXXX-XXXXX
@@ -243,7 +243,7 @@ so balances survive restarts.
 
 ---
 
-## <img src="assets/icons/key.svg" width="24" height="24" alt=""/> Key System
+## <img src="assets/icons/key.svg" width="20" height="20" alt=""/> Key System
 
 - **Format:** `LIONX-XXXXX-XXXXX-XXXXX` (random, uppercase alphanumeric)
 - **Daily key:** free, valid `12` hours from the moment you confirm, one claim per 24h
@@ -253,34 +253,32 @@ so balances survive restarts.
 
 ---
 
-## <img src="assets/icons/cpu.svg" width="24" height="24" alt=""/> How It Works
+## <img src="assets/icons/cpu.svg" width="20" height="20" alt=""/> How It Works
 
 ```
-  ┌──────────────┐
-  │  Telegram  │
-  │  User  │
-  └──────┬───────┘
-  │ /start, buttons
-  ▼
-┌──────────────────────────────────────────────┐
-│  LionX Bot (aiogram)  │
-│  ┌─────────┐  ┌──────────┐  ┌──────────────┐  │
-│  │ Channel │  │  Points  │  │  Key Engine  │  │
-│  │  Gate  │  │ & Streak │  │ LIONX-XXXXX  │  │
-│  └─────────┘  └──────────┘  └──────────────┘  │
-│  ┌─────────┐  ┌──────────┐  ┌──────────────┐  │
-│  │ Invite  │  │ Reports  │  │ Admin Panel  │  │
-│  │ System  │  │ & Reply  │  │  / Broadcast │  │
-│  └─────────┘  └──────────┘  └──────────────┘  │
-└──────────────────────┬───────────────────────┘
-  │ Firestore REST API
-  ▼
-  ┌──────────────────┐
-  │  Firebase  │
-  │  Firestore  │
-  │  users / keys  │
-  └──────────────────┘
+         ┌──────────┐
+         │ Telegram │
+         │   User   │
+         └────┬─────┘
+              │ /start
+              ▼
+ ┌──────────────────────┐
+ │  LionX Bot (aiogram) │
+ │ Channel │ Points │   │
+ │  Gate   │Streak  │   │
+ │ Invite  │ Report │   │
+ │ System  │ &Reply │   │
+ │ Key Engine │ Admin   │
+ │ LIONX-XXXX │ Panel   │
+ └──────┬───────────────┘
+        │ Firestore API
+        ▼
+   ┌──────────────┐
+   │   Firebase   │
+   │  users/keys  │
+   └──────────────┘
 ```
+
 
 1. **Gate** — every interaction first checks channel membership.
 2. **Identity** — users are stored in Firestore (`users` collection) with points, invites, streaks and claim timestamps.
@@ -289,7 +287,7 @@ so balances survive restarts.
 
 ---
 
-## <img src="assets/icons/cloud.svg" width="24" height="24" alt=""/> Deployment
+## <img src="assets/icons/cloud.svg" width="20" height="20" alt=""/> Deployment
 
 ### Run in the background (Linux)
 
@@ -331,7 +329,7 @@ docker run -d --restart unless-stopped --name lionxbot lionxbot
 
 ---
 
-## <img src="assets/icons/git-pull-request.svg" width="24" height="24" alt=""/> Contributing
+## <img src="assets/icons/git-pull-request.svg" width="20" height="20" alt=""/> Contributing
 
 This is a private project, but suggestions are welcome:
 
@@ -342,7 +340,7 @@ This is a private project, but suggestions are welcome:
 
 ---
 
-## <img src="assets/icons/comment-discussion.svg" width="24" height="24" alt=""/> Support
+## <img src="assets/icons/comment-discussion.svg" width="20" height="20" alt=""/> Support
 
 -  **Channel:** [@LionX_Engine](https://t.me/LionX_Engine)
 -  **Support bot:** [@LionXsupport_bot](https://t.me/LionXsupport_bot)
@@ -352,8 +350,8 @@ This is a private project, but suggestions are welcome:
 
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" alt="footer"/>
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=90&section=footer" alt="footer"/>
 
-**Built with <img src="assets/icons/heart.svg" width="18" height="18" alt=""/> for the LionX community**
+**Built with <img src="assets/icons/heart.svg" width="16" height="16" alt=""/> for the LionX community**
 
 </div>
