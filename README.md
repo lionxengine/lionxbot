@@ -1,8 +1,10 @@
 <div align="center">
 
-# 🦁 LionX Bot
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=220&section=header&text=LionX%20Bot&fontSize=70&fontColor=ffffff&animation=fadeIn&fontAlignY=38" alt="LionX Bot"/>
 
-### The official Telegram bot for **LionX Engine** — keys, rewards & community in one place.
+<img src="https://readme-typing-svg.demolab.com?font=Fira+Code&weight=600&size=22&pause=1000&color=F7B731&center=true&vCenter=true&width=600&lines=Telegram+Bot+for+LionX+Engine;Keys+%E2%80%A2+Rewards+%E2%80%A2+Community;Built+with+Python+%2B+aiogram" alt="Typing SVG"/>
+
+<br/>
 
 [![Python](https://img.shields.io/badge/Python-3.10%2B-blue?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
 [![aiogram](https://img.shields.io/badge/aiogram-3.x-2CA5E0?style=for-the-badge&logo=telegram&logoColor=white)](https://docs.aiogram.dev/)
@@ -55,11 +57,20 @@
 
 ## 🛠️ Tech Stack
 
-- **Language:** Python 3.10+
-- **Bot Framework:** [aiogram 3.x](https://docs.aiogram.dev/) (async Telegram Bot API)
-- **Database:** Google Firebase Firestore (via REST API)
-- **HTTP Client:** aiohttp
-- **State Management:** aiogram FSM (in-memory storage)
+<div align="center">
+
+<img src="https://skillicons.dev/icons?i=python,firebase&theme=dark" alt="Python Firebase" height="60"/>
+<img src="https://cdn.simpleicons.org/telegram/2CA5E0" alt="Telegram" height="55"/>
+
+</div>
+
+| Technology | Purpose |
+|---|---|
+| **Python 3.10+** | Core language |
+| **[aiogram 3.x](https://docs.aiogram.dev/)** | Async Telegram Bot API framework |
+| **[Firebase Firestore](https://firebase.google.com/)** | Cloud NoSQL database (via REST API) |
+| **aiohttp** | Async HTTP client for Firebase calls |
+| **aiogram FSM** | Conversation state management (in-memory) |
 
 ---
 
@@ -340,6 +351,8 @@ This is a private project, but suggestions are welcome:
 ---
 
 <div align="center">
+
+<img src="https://capsule-render.vercel.app/api?type=waving&color=gradient&customColorList=6,11,20&height=120&section=footer" alt="footer"/>
 
 **🦁 Built with ❤️ for the LionX community**
 
