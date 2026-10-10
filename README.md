@@ -38,18 +38,20 @@
 
 ## <img src="assets/icons/star.svg" width="20" height="20" alt=""/> Features
 
-- <img src="assets/icons/lock.svg" width="16" height="16" alt=""/> **Channel Gate** — Users must join the official channel before using the bot
-- <img src="assets/icons/key.svg" width="16" height="16" alt=""/> **Daily Free Key** — Every user can claim a free 12-hour key once every 24 hours
-- <img src="assets/icons/star.svg" width="16" height="16" alt=""/> **Points System** — Earn points via invites and daily streaks
-- <img src="assets/icons/tag.svg" width="16" height="16" alt=""/> **Key Shop** — Spend points on 1 / 3 / 7 / 15 / 30-day keys
-- <img src="assets/icons/people.svg" width="16" height="16" alt=""/> **Referral Program** — Invite friends with your personal link, earn +1 point each
-- <img src="assets/icons/flame.svg" width="16" height="16" alt=""/> **Daily Streaks** — Check in daily for points + milestone bonuses
-- <img src="assets/icons/graph.svg" width="16" height="16" alt=""/> **Profile Stats** — Points, invites, streak and key history at a glance
-- <img src="assets/icons/pencil.svg" width="16" height="16" alt=""/> **Report System** — Users can send reports; admins reply directly
-- <img src="assets/icons/upload.svg" width="16" height="16" alt=""/> **File Distribution** — Admins upload files (APK, etc.), users download in-bot
-- <img src="assets/icons/megaphone.svg" width="16" height="16" alt=""/> **Broadcast** — Admins can message all users at once
-- <img src="assets/icons/tools.svg" width="16" height="16" alt=""/> **Maintenance Mode** — One-tap toggle to pause the bot for everyone
-- <img src="assets/icons/video.svg" width="16" height="16" alt=""/> **Rich Media Menus** — Video-powered welcome and menu screens
+| Feature | Description |
+|---|---|
+| <img src="assets/icons/lock.svg" width="18" height="18" alt=""/> **Channel Gate** | Users must join the official channel before using the bot |
+| <img src="assets/icons/key.svg" width="18" height="18" alt=""/> **Daily Free Key** | Every user can claim a free 12-hour key once every 24 hours |
+| <img src="assets/icons/star.svg" width="18" height="18" alt=""/> **Points System** | Earn points via invites and daily streaks |
+| <img src="assets/icons/tag.svg" width="18" height="18" alt=""/> **Key Shop** | Spend points on 1 / 3 / 7 / 15 / 30-day keys |
+| <img src="assets/icons/people.svg" width="18" height="18" alt=""/> **Referral Program** | Invite friends with your personal link, earn +1 point each |
+| <img src="assets/icons/flame.svg" width="18" height="18" alt=""/> **Daily Streaks** | Check in daily for points + milestone bonuses |
+| <img src="assets/icons/graph.svg" width="18" height="18" alt=""/> **Profile Stats** | Points, invites, streak and key history at a glance |
+| <img src="assets/icons/pencil.svg" width="18" height="18" alt=""/> **Report System** | Users can send reports; admins reply directly |
+| <img src="assets/icons/upload.svg" width="18" height="18" alt=""/> **File Distribution** | Admins upload files (APK, etc.), users download in-bot |
+| <img src="assets/icons/megaphone.svg" width="18" height="18" alt=""/> **Broadcast** | Admins can message all users at once |
+| <img src="assets/icons/tools.svg" width="18" height="18" alt=""/> **Maintenance Mode** | One-tap toggle to pause the bot for everyone |
+| <img src="assets/icons/video.svg" width="18" height="18" alt=""/> **Rich Media Menus** | Video-powered welcome and menu screens |
 
 ---
 
@@ -62,11 +64,13 @@
 
 </div>
 
-- **Python 3.10+** — Core language
-- **[aiogram 3.x](https://docs.aiogram.dev/)** — Async Telegram Bot API framework
-- **[Firebase Firestore](https://firebase.google.com/)** — Cloud NoSQL database (via REST API)
-- **aiohttp** — Async HTTP client for Firebase calls
-- **aiogram FSM** — Conversation state management (in-memory)
+| Technology | Purpose |
+|---|---|
+| **Python 3.10+** | Core language |
+| **[aiogram 3.x](https://docs.aiogram.dev/)** | Async Telegram Bot API framework |
+| **[Firebase Firestore](https://firebase.google.com/)** | Cloud NoSQL database (via REST API) |
+| **aiohttp** | Async HTTP client for Firebase calls |
+| **aiogram FSM** | Conversation state management (in-memory) |
 
 ---
 
@@ -142,29 +146,35 @@ INFO:aiogram.dispatcher:Start polling
 
 All runtime settings live at the top of `bot.py`:
 
-- `TOKEN` — Telegram bot token
-- `ADMIN_ID` — Telegram ID of the bot admin
-- `CHANNEL_USERNAME` — Required channel (without @) (Default: `LionX_Engine`)
-- `FIREBASE_PROJECT_ID` — Firestore project ID (Default: `lionengine`)
-- `FIREBASE_API_KEY` — Firebase Web API key
-- `DAILY_KEY_VALID_HOURS` — Free daily key validity (Default: `12` hours`)
-- `RESELLER_NAME` — Display name of the reseller (Default: `Khalid Khan`)
+| Setting | Description | Default |
+|---|---|---|
+| `TOKEN` | Telegram bot token | — |
+| `ADMIN_ID` | Telegram ID of the bot admin | — |
+| `CHANNEL_USERNAME` | Required channel (without @) | LionX_Engine |
+| `FIREBASE_PROJECT_ID` | Firestore project ID | lionengine |
+| `FIREBASE_API_KEY` | Firebase Web API key | — |
+| `DAILY_KEY_VALID_HOURS` | Free daily key validity (Default: `12` hours`) | — |
+| `RESELLER_NAME` | Display name of the reseller | Khalid Khan |
 
 ### Key pricing (`KEY_COSTS`)
 
-- **1 Day** — 5 points
-- **3 Days** — 8 points
-- **7 Days** — 15 points
-- **15 Days** — 25 points
-- **30 Days** — 40 points
+| Duration | Cost |
+|---|---|
+| 1 Day | 5 points |
+| 3 Days | 8 points |
+| 7 Days | 15 points |
+| 15 Days | 25 points |
+| 30 Days | 40 points |
 
 ---
 
 ## <img src="assets/icons/terminal.svg" width="20" height="20" alt=""/> Bot Commands
 
-- `/start` (Everyone) — Start the bot / open the main menu (supports invite links: `/start <user_id>`)
-- `/admin` (Admin only) — Open the admin control panel
-- `/resetdaily` (Admin only) — Reset daily-key claims for all users
+| Command | Who | Description |
+|---|---|---|
+| `/start` | Everyone | Start the bot / open the main menu (supports invite links: `/start <user_id>`) |
+| `/admin` | Admin only | Open the admin control panel |
+| `/resetdaily` | Admin only | Reset daily-key claims for all users |
 
 ---
 
@@ -182,11 +192,13 @@ All runtime settings live at the top of `bot.py`:
 4. Come back after 24 hours for the next one ⏰
 
 ###  Earning points
-- Invite a friend (they join via your link) — **+1 point** per invite
-- Daily streak check-in — **+points** every day
-- 6-day streak — **+3 bonus** points
-- 15-day streak — **+5 bonus** points
-- 30-day streak — **+10 bonus** points
+| Action | Reward |
+|---|---|
+| Invite a friend (they join via your link) | **+1 point** per invite |
+| Daily streak check-in | **+points** every day |
+| 6-day streak | **+3 bonus** points |
+| 15-day streak | **+5 bonus** points |
+| 30-day streak | **+10 bonus** points |
 
 ###  Generating a key
 1. Open ** Generate Key**
@@ -206,13 +218,15 @@ Use **Report** in the menu, describe your problem, and the admin can reply to yo
 
 Open the panel with **/admin**:
 
-- <img src="assets/icons/megaphone.svg" width="16" height="16" alt=""/> **Broadcast** — Send a message to every bot user
-- <img src="assets/icons/upload.svg" width="16" height="16" alt=""/> **Add File** — Upload a file (e.g. APK) for users to download
-- **List Files** — View / manage distributed files
-- <img src="assets/icons/people.svg" width="16" height="16" alt=""/> **User Stats** — Total users, points and activity overview
-- <img src="assets/icons/tools.svg" width="16" height="16" alt=""/> **Maintenance Mode** — Toggle — pauses the bot for everyone except admin
-- **Reset All Daily Keys** — Let everyone claim the daily key again
-- **Reply** — Answer user reports one-to-one
+| Action | What it does |
+|---|---|
+| <img src="assets/icons/megaphone.svg" width="18" height="18" alt=""/> **Broadcast** | Send a message to every bot user |
+| <img src="assets/icons/upload.svg" width="18" height="18" alt=""/> **Add File** | Upload a file (e.g. APK) for users to download |
+| **List Files** | View / manage distributed files |
+| <img src="assets/icons/people.svg" width="18" height="18" alt=""/> **User Stats** | Total users, points and activity overview |
+| <img src="assets/icons/tools.svg" width="18" height="18" alt=""/> **Maintenance Mode** | Toggle — pauses the bot for everyone except admin |
+| **Reset All Daily Keys** | Let everyone claim the daily key again |
+| **Reply** | Answer user reports one-to-one |
 
 ---
 
