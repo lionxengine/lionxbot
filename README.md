@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="https://capsule-render.vercel.app/api?type=waving&color=FF6B35&height=200&section=header&text=LionX%20Bot&fontSize=60&fontColor=ffffff&animation=fadeIn" alt="LionX Bot"/>
+<img src="assets/banner.svg" alt="LionX Bot Banner" width="100%"/>
 
 </div>
 
